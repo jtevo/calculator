@@ -13,6 +13,19 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: "jacoco"
+
+jacocoTestCoverageVerification {
+        violationRules {
+		rule { limit {
+			minimum = 0.2
+			} 	
+		}
+	}
+}
+	
+     
+
 
 group = 'jtevo'
 version = '0.0.1-SNAPSHOT'
