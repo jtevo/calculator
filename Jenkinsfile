@@ -3,6 +3,13 @@ pipeline {
         triggers {
         		pollSCM('* * * * *')
 		}
+		post {
+        		always {
+             	mail to: 'zenmatix@gmail.com',
+             	subject: "Completed Pipeline: ${currentBuild.fullDisplayName}",
+             	body: "Your build completed, please check: ${env.BUILD_URL}"
+			} 
+		}
         stages {
         
 			stage('SonarQube analysis') {
