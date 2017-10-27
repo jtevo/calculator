@@ -3,13 +3,15 @@ pipeline {
         triggers {
         		pollSCM('* * * * *')
 		}
-		/* post {
+		 post {
         		always {
-             	mail to: 'zenmatix@gmail.com',
-             	subject: "Completed Pipeline: ${currentBuild.fullDisplayName}",
-             	body: "Your build completed, please check: ${env.BUILD_URL}"
+             	//mail to: 'zenmatix@gmail.com',
+             	//subject: "Completed Pipeline: ${currentBuild.fullDisplayName}",
+             	//body: "Your build completed, please check: ${env.BUILD_URL}"
+             	sh "docker stop calculator"
+             	
 			} 
-		} */
+		} 
         stages {
         
 			stage('SonarQube analysis') {
@@ -42,6 +44,33 @@ pipeline {
              	sh "./gradlew jacocoTestCoverageVerification"
         			}
      		}
+     		stage("Package") {
+        			steps {
+             		sh "./gradlew build"
+        			}
+			}
+			stage("Docker build") {
+        			steps {
+             		sh "docker build -t calculator ."
+        			}
+			}
+			/*stage("Docker push") {
+        			steps {
+             		sh "docker push zeno2/calculator"
+        			}
+			}*/
+			stage("Deploy to staging") {
+        			steps {
+             		sh "docker run -d --rm -p 8765:8080 --name calculator
+   					calculator"
+				} 
+			}
+			stage("Acceptance test") {
+        			steps {
+					sleep 60
+             		sh "./acceptance_test.sh"
+        			}
+			}
 
       }
 }
