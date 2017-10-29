@@ -51,7 +51,7 @@ pipeline {
 			}
 			stage("Docker build") {
         			steps {
-             		sh "docker build -t calculator ."
+             		sh "sudo docker build -t calculator ."
         			}
 			}
 			/*stage("Docker push") {
@@ -61,7 +61,7 @@ pipeline {
 			}*/
 			stage("Deploy to staging") {
         			steps {
-             		sh "docker run -d --rm -p 8765:8080 --name calculator calculator"
+             		sh "sudo docker run -d --rm -p 8765:8080 --name calculator calculator"
 				} 
 			}
 			stage("Acceptance test") {
