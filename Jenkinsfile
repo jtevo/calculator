@@ -8,7 +8,8 @@ pipeline {
              	//mail to: 'zenmatix@gmail.com',
              	//subject: "Completed Pipeline: ${currentBuild.fullDisplayName}",
              	//body: "Your build completed, please check: ${env.BUILD_URL}"
-             	sh "sudo docker stop calculator"
+             	//sh "sudo docker stop calculator"
+             	sh "sudo docker-compose down"
              	
 			} 
 		} 
@@ -46,12 +47,12 @@ pipeline {
      		}
      		stage("Package") {
         			steps {
-             		sh "./gradlew build"
+             		sh "./gradlew clean build"
         			}
 			}
 			stage("Docker build") {
         			steps {
-             		sh "sudo docker build -t calculator ."
+             		// sh "sudo docker build -t calculator ."
         			}
 			}
 			/*stage("Docker push") {
@@ -62,7 +63,7 @@ pipeline {
 			stage("Deploy to staging") {
         			steps {
              		//sh "sudo docker run -d --rm -p 8765:8080 --name calculator calculator"
-             		sh "docker-compose up -d"
+             		sh "sudo docker-compose up -d"
 				} 
 			}
 			stage("Acceptance test") {
