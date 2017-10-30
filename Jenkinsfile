@@ -50,11 +50,11 @@ pipeline {
              		sh "./gradlew clean build"
         			}
 			}
-			stage("Docker build") {
+			/* stage("Docker build") {
         			steps {
-             		// sh "sudo docker build -t calculator ."
+             		sh "sudo docker build -t calculator ."
         			}
-			}
+			} */
 			/*stage("Docker push") {
         			steps {
              		sh "docker push zeno2/calculator"
