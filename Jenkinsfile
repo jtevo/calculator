@@ -61,7 +61,8 @@ pipeline {
 			}*/
 			stage("Deploy to staging") {
         			steps {
-             		sh "sudo docker run -d --rm -p 8765:8080 --name calculator calculator"
+             		//sh "sudo docker run -d --rm -p 8765:8080 --name calculator calculator"
+             		sh "docker-compose up -d"
 				} 
 			}
 			stage("Acceptance test") {
