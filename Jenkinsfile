@@ -5,10 +5,7 @@ pipeline {
 		}
 		 post {
         		always {
-             	//mail to: 'zenmatix@gmail.com',
-             	//subject: "Completed Pipeline: ${currentBuild.fullDisplayName}",
-             	//body: "Your build completed, please check: ${env.BUILD_URL}"
-             	//sh "sudo docker stop calculator"
+             	
              	sh "sudo docker-compose down"
              	
 			} 
